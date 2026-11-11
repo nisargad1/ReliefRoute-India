@@ -1,0 +1,10 @@
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+.DS_Store
+rsconnect/
+*.Rcheck/
+*.log
+push_to_github.ps1
+push_to_github.sh

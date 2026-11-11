@@ -1,0 +1,24 @@
+Package: ReliefRouteIndia
+Title: Dynamic Humanitarian Supply-Chain Router for India
+Version: 2.0.0
+Description: R Shiny dashboard that routes relief trucks around hazard zones
+    using a Weighted Risk Index, live public data feeds and optimisation.
+    This file lists dependencies for continuous integration only.
+License: MIT
+Encoding: UTF-8
+Imports:
+    sf,
+    igraph,
+    lpSolve,
+    httr,
+    jsonlite,
+    htmltools
+Suggests:
+    testthat,
+    shiny,
+    shinydashboard,
+    leaflet,
+    leaflet.extras,
+    DT,
+    plotly,
+    rintrojs
