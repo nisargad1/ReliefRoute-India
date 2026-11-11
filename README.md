@@ -120,4 +120,4 @@ git push -u origin main
 ## Credits
 
 Open-Meteo (CC BY 4.0), USGS, NASA EONET, OpenStreetMap contributors, OSRM, Esri and OpenTopoMap basemaps,
-Census of India. Licence: MIT (add a `LICENSE` file on GitHub).
+Census of India. Licence: MIT (see [LICENSE](LICENSE)).
