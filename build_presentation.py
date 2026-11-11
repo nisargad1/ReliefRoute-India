@@ -43,7 +43,6 @@ def create_presentation():
         return bg
 
     def add_header(slide, tag_text, title_text, subtitle_text=None, tag_color=PRIMARY_BLUE):
-        # Category Tag Pill
         tag_box = slide.shapes.add_textbox(Inches(0.8), Inches(0.4), Inches(8), Inches(0.4))
         tf_tag = tag_box.text_frame
         tf_tag.word_wrap = True
@@ -54,7 +53,6 @@ def create_presentation():
         p_tag.font.bold = True
         p_tag.font.color.rgb = tag_color
 
-        # Title
         title_box = slide.shapes.add_textbox(Inches(0.8), Inches(0.75), Inches(11.5), Inches(0.65))
         tf_title = title_box.text_frame
         tf_title.word_wrap = True
@@ -65,7 +63,6 @@ def create_presentation():
         p_title.font.bold = True
         p_title.font.color.rgb = SLATE_900
 
-        # Subtitle
         if subtitle_text:
             sub_box = slide.shapes.add_textbox(Inches(0.8), Inches(1.35), Inches(11.5), Inches(0.4))
             tf_sub = sub_box.text_frame
@@ -93,13 +90,11 @@ def create_presentation():
     s1 = prs.slides.add_slide(blank_slide_layout)
     add_bg(s1, DARK_BG)
 
-    # Accent decorative glow bar
     bar = s1.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(0.8), Inches(1.2), Inches(0.12), Inches(4.8))
     bar.fill.solid()
     bar.fill.fore_color.rgb = ORANGE_ALERT
     bar.line.fill.background()
 
-    # Title text frame
     t_box = s1.shapes.add_textbox(Inches(1.2), Inches(1.2), Inches(6.2), Inches(4.8))
     tf1 = t_box.text_frame
     tf1.word_wrap = True
@@ -137,7 +132,6 @@ def create_presentation():
     p_meta.font.bold = True
     p_meta.font.color.rgb = RGBColor(226, 232, 240)
 
-    # Hero Image on Right Side
     if os.path.exists(img_hero):
         hero_card = add_card(s1, Inches(7.7), Inches(1.2), Inches(4.8), Inches(5.1), DARK_CARD, RGBColor(30, 62, 98))
         s1.shapes.add_picture(img_hero, Inches(7.8), Inches(1.3), Inches(4.6), Inches(3.8))
@@ -196,7 +190,6 @@ def create_presentation():
         p2.font.size = Pt(11)
         p2.font.color.rgb = SLATE_700
 
-    # Right Column: Visual Photo & Stat Callout
     if os.path.exists(img_flood):
         card_pic = add_card(s2, Inches(7.8), Inches(1.85), Inches(4.7), Inches(3.3))
         s2.shapes.add_picture(img_flood, Inches(7.9), Inches(1.95), Inches(4.5), Inches(2.7))
@@ -206,7 +199,6 @@ def create_presentation():
         p_c.font.size = Pt(9.5)
         p_c.font.color.rgb = SLATE_500
 
-    # Key Stat Callout Card
     stat_card = add_card(s2, Inches(7.8), Inches(5.35), Inches(4.7), Inches(1.6), RGBColor(254, 242, 242), RGBColor(254, 205, 211))
     tb_st = s2.shapes.add_textbox(Inches(8.0), Inches(5.45), Inches(4.3), Inches(1.4))
     tf_st = tb_st.text_frame
@@ -222,11 +214,75 @@ def create_presentation():
     p_st2.font.color.rgb = SLATE_900
 
     # =========================================================================
-    # SLIDE 3: EXISTING SOLUTIONS VS OUR SOLUTION
+    # SLIDE 3: WHO ARE THE USERS? (TARGET AUDIENCE & STAKEHOLDERS)
     # =========================================================================
     s3 = prs.slides.add_slide(blank_slide_layout)
     add_bg(s3, LIGHT_BG)
-    add_header(s3, "Comparison with Existing Tools", 
+    add_header(s3, "Target Audience & Stakeholders", 
+               "Who Are the Users of ReliefRoute India?",
+               "Designed for government agencies, emergency responders, fleet operators, and aid workers.")
+
+    users = [
+        ("1. Disaster Management Authorities", 
+         "NDMA, State (SDMA) & District (DDMA) Teams",
+         "• Monitors the national supply-demand picture in real time.\n• Sees which districts are cut off by floods or landslides.\n• Downloads one-click Situation Reports (HTML/PDF) for executive briefings and state emergency meetings.",
+         NAVY_BLUE),
+        ("2. Fleet Dispatchers & Convoy Leaders", 
+         "NDRF, Armed Forces & Truck Operators",
+         "• Plans safe turn-by-turn driving routes for emergency lorry drivers.\n• Uses the Safety Slider to balance convoy speed vs hazard detour.\n• Automatically groups trucks into 10-tonne convoys to save fuel and ensure drivers travel in safe escorted teams.",
+         PRIMARY_BLUE),
+        ("3. Relief Camp Managers & District Officers", 
+         "Local Emergency Relief Camps & Shelters",
+         "• Enters camp population numbers to calculate exact food/water tonnes needed.\n• Draws live red 'No-Go' circles or boxes directly on the map over flooded bridges.\n• Requests supplies from multiple central warehouses with clear shortage warnings.",
+         EMERALD_GREEN),
+        ("4. NGOs & Humanitarian Volunteers", 
+         "Red Cross, Goonj, Local Volunteer Networks",
+         "• Needs an affordable, free tool to coordinate independent aid trucks.\n• Avoids expensive commercial mapping subscription fees.\n• Uses open-source data to direct donated clothes, food, and medicine to where need is highest.",
+         PURPLE_ACC)
+    ]
+
+    for idx, (u_title, u_role, u_points, u_col) in enumerate(users):
+        r = idx // 2
+        c = idx % 2
+        x_pos = Inches(0.8 + c * 5.9)
+        y_pos = Inches(1.85 + r * 2.55)
+        
+        card = add_card(s3, x_pos, y_pos, Inches(5.7), Inches(2.35), WHITE, BORDER_COLOR)
+        
+        strip = s3.shapes.add_shape(MSO_SHAPE.RECTANGLE, x_pos, y_pos, Inches(0.1), Inches(2.35))
+        strip.fill.solid()
+        strip.fill.fore_color.rgb = u_col
+        strip.line.fill.background()
+
+        tb = s3.shapes.add_textbox(x_pos + Inches(0.25), y_pos + Inches(0.18), Inches(5.2), Inches(2.0))
+        tf = tb.text_frame
+        tf.word_wrap = True
+        
+        p1 = tf.paragraphs[0]
+        p1.text = u_title
+        p1.font.size = Pt(13)
+        p1.font.bold = True
+        p1.font.color.rgb = SLATE_900
+        p1.space_after = Pt(2)
+
+        p2 = tf.add_paragraph()
+        p2.text = u_role.upper()
+        p2.font.size = Pt(9.5)
+        p2.font.bold = True
+        p2.font.color.rgb = u_col
+        p2.space_after = Pt(6)
+
+        p3 = tf.add_paragraph()
+        p3.text = u_points
+        p3.font.size = Pt(10)
+        p3.font.color.rgb = SLATE_700
+
+    # =========================================================================
+    # SLIDE 4: EXISTING SOLUTIONS VS OUR SOLUTION
+    # =========================================================================
+    s4 = prs.slides.add_slide(blank_slide_layout)
+    add_bg(s4, LIGHT_BG)
+    add_header(s4, "Comparison with Existing Tools", 
                "What Exists Today vs. ReliefRoute India",
                "How our solution solves the key missing pieces in current apps.")
 
@@ -269,9 +325,9 @@ def create_presentation():
         x_pos = Inches(0.8 + idx * 2.95)
         is_ours = (idx == 3)
         bg = RGBColor(240, 253, 250) if is_ours else WHITE
-        card = add_card(s3, x_pos, Inches(1.85), Inches(2.8), Inches(5.1), bg, border_col)
+        card = add_card(s4, x_pos, Inches(1.85), Inches(2.8), Inches(5.1), bg, border_col)
         
-        tb = s3.shapes.add_textbox(x_pos + Inches(0.15), Inches(1.95), Inches(2.5), Inches(0.8))
+        tb = s4.shapes.add_textbox(x_pos + Inches(0.15), Inches(1.95), Inches(2.5), Inches(0.8))
         tf = tb.text_frame
         tf.word_wrap = True
         p_t = tf.paragraphs[0]
@@ -286,7 +342,7 @@ def create_presentation():
         p_tag.font.color.rgb = EMERALD_GREEN if is_ours else SLATE_500
         p_tag.space_after = Pt(10)
 
-        feat_box = s3.shapes.add_textbox(x_pos + Inches(0.15), Inches(2.85), Inches(2.5), Inches(3.9))
+        feat_box = s4.shapes.add_textbox(x_pos + Inches(0.15), Inches(2.85), Inches(2.5), Inches(3.9))
         tf_f = feat_box.text_frame
         tf_f.word_wrap = True
         tf_f.margin_left = tf_f.margin_top = tf_f.margin_right = tf_f.margin_bottom = 0
@@ -306,121 +362,128 @@ def create_presentation():
             p_fv.space_after = Pt(8)
 
     # =========================================================================
-    # SLIDE 4: THE CORE INNOVATION - WEIGHTED RISK INDEX (WRI)
+    # SLIDE 5: FORMULAS USED (PART 1: RISK & SAFE ROUTING)
     # =========================================================================
-    s4 = prs.slides.add_slide(blank_slide_layout)
-    add_bg(s4, LIGHT_BG)
-    add_header(s4, "Our Solution & Method", 
-               "How We Calculate Safe Routes: The Risk Index",
-               "We give every road a Risk Score so trucks can safely detour around danger.")
+    s5 = prs.slides.add_slide(blank_slide_layout)
+    add_bg(s5, LIGHT_BG)
+    add_header(s5, "Formulas Used: Part 1", 
+               "How We Calculate Safe Routes & Road Risk Scores",
+               "The exact equations used by the app to score danger and reroute trucks.")
 
-    # Left: Simple Math Explanation
-    left_w = Inches(6.0)
-    card_math = add_card(s4, Inches(0.8), Inches(1.85), left_w, Inches(5.1), WHITE, PRIMARY_BLUE)
-    
-    tb_m = s4.shapes.add_textbox(Inches(1.1), Inches(2.05), Inches(5.4), Inches(4.7))
-    tf_m = tb_m.text_frame
-    tf_m.word_wrap = True
-    
-    p_m1 = tf_m.paragraphs[0]
-    p_m1.text = "1. Road Risk Score (From 0 to 100)"
-    p_m1.font.size = Pt(14)
-    p_m1.font.bold = True
-    p_m1.font.color.rgb = SLATE_900
-    p_m1.space_after = Pt(4)
-
-    p_eq1 = tf_m.add_paragraph()
-    p_eq1.text = "Risk Score = Combining (Weather + Weak Roads + Road Security)"
-    p_eq1.font.size = Pt(11.5)
-    p_eq1.font.bold = True
-    p_eq1.font.color.rgb = NAVY_BLUE
-    p_eq1.space_after = Pt(14)
-
-    p_m2 = tf_m.add_paragraph()
-    p_m2.text = "2. Weather Delays"
-    p_m2.font.size = Pt(14)
-    p_m2.font.bold = True
-    p_m2.font.color.rgb = SLATE_900
-    p_m2.space_after = Pt(4)
-
-    p_eq2 = tf_m.add_paragraph()
-    p_eq2.text = "Real Travel Time = Normal Time + Rain / Flood Slowdown"
-    p_eq2.font.size = Pt(11.5)
-    p_eq2.font.bold = True
-    p_eq2.font.color.rgb = NAVY_BLUE
-    p_eq2.space_after = Pt(14)
-
-    p_m3 = tf_m.add_paragraph()
-    p_m3.text = "3. Picking the Best Route"
-    p_m3.font.size = Pt(14)
-    p_m3.font.bold = True
-    p_m3.font.color.rgb = SLATE_900
-    p_m3.space_after = Pt(4)
-
-    p_eq3 = tf_m.add_paragraph()
-    p_eq3.text = "Routing Cost = Travel Time + Extra Penalty for High Risk"
-    p_eq3.font.size = Pt(11.5)
-    p_eq3.font.bold = True
-    p_eq3.font.color.rgb = NAVY_BLUE
-    p_eq3.space_after = Pt(14)
-
-    p_m4 = tf_m.add_paragraph()
-    p_m4.text = "• Slider at Zero: Behaves like normal GPS (fastest route).\n• Slider Higher: Carefully routes trucks around floods and landslides.\n• Dangerous Roads: Roads underwater or inside drawn danger zones are shut down immediately."
-    p_m4.font.size = Pt(10)
-    p_m4.font.color.rgb = SLATE_700
-
-    # Right: 4 Simple Factors
-    dims = [
-        ("Weather Danger (H)", 
-         "Pulls live rainfall forecasts, river flood alerts, and earthquake reports automatically from weather sensors.", 
-         ORANGE_ALERT),
-        ("Weak Roads (V)", 
-         "Accounts for fragile roads, steep mountain passes, and flood plains that easily crack or submerge.", 
-         PURPLE_ACC),
-        ("Road Security (S)", 
-         "Considers checkpoints, broken bridges, or difficult areas where trucks might get stuck or delayed.", 
-         PRIMARY_BLUE),
-        ("Safety Slider (λ from 0 to 10)", 
-         "A simple slider in the dashboard that lets emergency managers choose between Maximum Speed or Maximum Safety.", 
+    formulas_part1 = [
+        ("Formula 1: The Weighted Risk Index (WRI)", 
+         "WRI = 100 × ( wH·H + wR·V + wS·S ) / ( wH + wR + wS )",
+         "• Meaning: Calculates a single Risk Score from 0 (Safe) to 100 (Deadly) for every highway.\n• H (Hazard): Live weather danger (0 to 1) from rain forecast, flood signals, or earthquakes.\n• V (Vulnerability): Road fragility (0 to 1) based on mountain terrain slope or flood plains.\n• S (Security): Checkpoints, difficult passes, or border security constraints (0 to 1).\n• wH, wR, wS: Importance weights chosen by user (default: 8 for weather, 4 for road, 3 for security).",
+         NAVY_BLUE),
+        ("Formula 2: Hazard Slowdown (Real Travel Time)", 
+         "Travel_Time = Base_Time / ( 1 - 0.45 · H )",
+         "• Meaning: Floods, water-logging, and storms slow down heavy trucks automatically.\n• If Hazard H = 0 (dry weather): Travel_Time = Base_Time (normal truck speed: 55 km/h on highways).\n• As Hazard H increases toward 1: Truck speed slows down by up to ~45% due to rain and standing water.",
+         AMBER_YELLOW),
+        ("Formula 3: Risk-Penalised Routing Cost (Dijkstra Shortest Path)", 
+         "Route_Cost = Travel_Time × [ 1 + λ × ( WRI / 100 ) × 2 ]",
+         "• Meaning: Adds an extra penalty to dangerous roads so the map chooses safe detours.\n• λ (Lambda Slider, 0 to 10): Lets the manager set their risk tolerance.\n• At λ = 0: Behaves like normal GPS (fastest route, ignores danger).\n• At λ > 0: Happily takes a small detour if it avoids dangerous flood corridors.\n• Hard Rule: If a road touches a drawn danger polygon or H ≥ 0.85, the road is closed completely.",
          EMERALD_GREEN)
     ]
 
-    for idx, (d_title, d_desc, d_col) in enumerate(dims):
-        y_pos = Inches(1.85 + idx * 1.3)
-        c = add_card(s4, Inches(7.1), y_pos, Inches(5.4), Inches(1.15))
+    for idx, (f_title, f_eq, f_desc, f_col) in enumerate(formulas_part1):
+        y_pos = Inches(1.85 + idx * 1.65)
+        card = add_card(s5, Inches(0.8), y_pos, Inches(11.7), Inches(1.5))
         
-        strip = s4.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(7.1), y_pos, Inches(0.1), Inches(1.15))
+        strip = s5.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(0.8), y_pos, Inches(0.12), Inches(1.5))
         strip.fill.solid()
-        strip.fill.fore_color.rgb = d_col
+        strip.fill.fore_color.rgb = f_col
         strip.line.fill.background()
 
-        tb = s4.shapes.add_textbox(Inches(7.35), y_pos + Inches(0.08), Inches(5.0), Inches(1.0))
+        tb = s5.shapes.add_textbox(Inches(1.1), y_pos + Inches(0.08), Inches(11.2), Inches(1.35))
         tf = tb.text_frame
         tf.word_wrap = True
+        
         p1 = tf.paragraphs[0]
-        p1.text = d_title
-        p1.font.size = Pt(12)
+        p1.text = f_title
+        p1.font.size = Pt(13)
         p1.font.bold = True
         p1.font.color.rgb = SLATE_900
         p1.space_after = Pt(2)
 
         p2 = tf.add_paragraph()
-        p2.text = d_desc
-        p2.font.size = Pt(9.5)
-        p2.font.color.rgb = SLATE_700
+        p2.text = f_eq
+        p2.font.size = Pt(12)
+        p2.font.bold = True
+        p2.font.color.rgb = f_col
+        p2.space_after = Pt(4)
+
+        p3 = tf.add_paragraph()
+        p3.text = f_desc
+        p3.font.size = Pt(9.5)
+        p3.font.color.rgb = SLATE_700
 
     # =========================================================================
-    # SLIDE 5: DUAL OPTIMIZATION ENGINES (LP ALLOCATION + CONVOY VRP)
+    # SLIDE 6: FORMULAS USED (PART 2: CAMP DEMAND, LP & CONVOY SAVINGS)
     # =========================================================================
-    s5 = prs.slides.add_slide(blank_slide_layout)
-    add_bg(s5, LIGHT_BG)
-    add_header(s5, "Smart Logistics Features", 
+    s6 = prs.slides.add_slide(blank_slide_layout)
+    add_bg(s6, LIGHT_BG)
+    add_header(s6, "Formulas Used: Part 2", 
+               "How We Calculate Camp Needs, Warehouse Sharing & Convoys",
+               "Equations for population relief rations, linear programming, and vehicle routing.")
+
+    formulas_part2 = [
+        ("Formula 4: Dynamic Relief Camp Demand (Tonnes of Food/Water)", 
+         "Demand = [ Population × Affected% × ( 1 + 1.5·H ) × Ration_kg × Days ] / 1000",
+         "• Meaning: Calculates exactly how many tonnes of supplies each disaster camp needs.\n• Population: Census of India 2011 district numbers.\n• Affected%: Percentage of district displaced or stranded (e.g. 5% to 25%).\n• (1 + 1.5·H): Disaster multiplier — camps in severe flood areas (high H) receive up to 2.5× extra aid.\n• Ration_kg: Standard disaster ration per person per day (default: 2.5 kg food and water).",
+         PRIMARY_BLUE),
+        ("Formula 5: Warehouse Supply Balancing (Linear Programming Simplex)", 
+         "Minimize Total Cost = ∑ ∑ ( Shipment_ij × Route_Cost_ij )  subject to  Warehouse Stock & Camp Need",
+         "• Meaning: Solves the mathematical puzzle of which central warehouse supplies which relief camp.\n• Shipment_ij: Number of tonnes sent from Warehouse i to Camp j.\n• Route_Cost_ij: Safe risk-weighted rupee delivery cost between the two cities.\n• Constraint: A warehouse cannot ship more than its stored stock. Every camp's demand must be met.\n• Virtual Dummy Hub: If total stock across India is short, unmet demand is flagged with exact missing tonnes.",
+         PURPLE_ACC),
+        ("Formula 6: Clarke-Wright Convoy Savings (Grouping Deliveries)", 
+         "Savings(A, B) = Cost(Hub to A) + Cost(Hub to B) - Cost(A to B)",
+         "• Meaning: Checks if delivering to Camp A and Camp B in ONE combined round trip saves fuel.\n• Instead of sending 2 separate round trips (Hub→A→Hub and Hub→B→Hub), trucks travel Hub→A→B→Hub.\n• Capacity Constraint: Total tonnes combined must fit within the 10-tonne truck payload limit.\n• Result: Saves up to 35% in fuel and ensures relief trucks travel in safe, escorted groups.",
+         NAVY_BLUE)
+    ]
+
+    for idx, (f_title, f_eq, f_desc, f_col) in enumerate(formulas_part2):
+        y_pos = Inches(1.85 + idx * 1.65)
+        card = add_card(s6, Inches(0.8), y_pos, Inches(11.7), Inches(1.5))
+        
+        strip = s6.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(0.8), y_pos, Inches(0.12), Inches(1.5))
+        strip.fill.solid()
+        strip.fill.fore_color.rgb = f_col
+        strip.line.fill.background()
+
+        tb = s6.shapes.add_textbox(Inches(1.1), y_pos + Inches(0.08), Inches(11.2), Inches(1.35))
+        tf = tb.text_frame
+        tf.word_wrap = True
+        
+        p1 = tf.paragraphs[0]
+        p1.text = f_title
+        p1.font.size = Pt(13)
+        p1.font.bold = True
+        p1.font.color.rgb = SLATE_900
+        p1.space_after = Pt(2)
+
+        p2 = tf.add_paragraph()
+        p2.text = f_eq
+        p2.font.size = Pt(12)
+        p2.font.bold = True
+        p2.font.color.rgb = f_col
+        p2.space_after = Pt(4)
+
+        p3 = tf.add_paragraph()
+        p3.text = f_desc
+        p3.font.size = Pt(9.5)
+        p3.font.color.rgb = SLATE_700
+
+    # =========================================================================
+    # SLIDE 7: DUAL OPTIMIZATION ENGINES (LP ALLOCATION + CONVOY VRP)
+    # =========================================================================
+    s7 = prs.slides.add_slide(blank_slide_layout)
+    add_bg(s7, LIGHT_BG)
+    add_header(s7, "Smart Logistics Features", 
                "Two Smart Tools: Sharing Supplies & Grouping Trucks",
                "Deciding who gets what supplies, and how trucks travel together safely.")
 
-    # Engine 1: Transportation LP
-    add_card(s5, Inches(0.8), Inches(1.85), Inches(5.7), Inches(5.1), WHITE, BORDER_COLOR)
-    tb_e1 = s5.shapes.add_textbox(Inches(1.1), Inches(2.05), Inches(5.1), Inches(4.7))
+    add_card(s7, Inches(0.8), Inches(1.85), Inches(5.7), Inches(5.1), WHITE, BORDER_COLOR)
+    tb_e1 = s7.shapes.add_textbox(Inches(1.1), Inches(2.05), Inches(5.1), Inches(4.7))
     tf_e1 = tb_e1.text_frame
     tf_e1.word_wrap = True
     
@@ -450,9 +513,8 @@ def create_presentation():
         p.font.color.rgb = SLATE_700
         p.space_after = Pt(12)
 
-    # Engine 2: Convoy VRP
-    add_card(s5, Inches(6.8), Inches(1.85), Inches(5.7), Inches(5.1), WHITE, BORDER_COLOR)
-    tb_e2 = s5.shapes.add_textbox(Inches(7.1), Inches(2.05), Inches(5.1), Inches(4.7))
+    add_card(s7, Inches(6.8), Inches(1.85), Inches(5.7), Inches(5.1), WHITE, BORDER_COLOR)
+    tb_e2 = s7.shapes.add_textbox(Inches(7.1), Inches(2.05), Inches(5.1), Inches(4.7))
     tf_e2 = tb_e2.text_frame
     tf_e2.word_wrap = True
 
@@ -483,11 +545,11 @@ def create_presentation():
         p.space_after = Pt(12)
 
     # =========================================================================
-    # SLIDE 6: SYSTEM ARCHITECTURE & DATA FLOW
+    # SLIDE 8: SYSTEM ARCHITECTURE & DATA FLOW
     # =========================================================================
-    s6 = prs.slides.add_slide(blank_slide_layout)
-    add_bg(s6, LIGHT_BG)
-    add_header(s6, "How the System Works", 
+    s8 = prs.slides.add_slide(blank_slide_layout)
+    add_bg(s8, LIGHT_BG)
+    add_header(s8, "How the System Works", 
                "System Architecture in 3 Simple Steps",
                "From live public data to smart map directions for relief teams.")
 
@@ -520,14 +582,14 @@ def create_presentation():
 
     for idx, (l_tag, l_title, l_items, l_col) in enumerate(arch_steps):
         x_pos = Inches(0.8 + idx * 3.95)
-        add_card(s6, x_pos, Inches(1.85), Inches(3.8), Inches(5.1), WHITE, BORDER_COLOR)
+        add_card(s8, x_pos, Inches(1.85), Inches(3.8), Inches(5.1), WHITE, BORDER_COLOR)
         
-        strip = s6.shapes.add_shape(MSO_SHAPE.RECTANGLE, x_pos, Inches(1.85), Inches(3.8), Inches(0.1))
+        strip = s8.shapes.add_shape(MSO_SHAPE.RECTANGLE, x_pos, Inches(1.85), Inches(3.8), Inches(0.1))
         strip.fill.solid()
         strip.fill.fore_color.rgb = l_col
         strip.line.fill.background()
 
-        tb = s6.shapes.add_textbox(x_pos + Inches(0.2), Inches(2.1), Inches(3.4), Inches(4.6))
+        tb = s8.shapes.add_textbox(x_pos + Inches(0.2), Inches(2.1), Inches(3.4), Inches(4.6))
         tf = tb.text_frame
         tf.word_wrap = True
         
@@ -553,11 +615,11 @@ def create_presentation():
             pi.space_after = Pt(9)
 
     # =========================================================================
-    # SLIDE 7: TECH STACK BREAKDOWN
+    # SLIDE 9: TECH STACK BREAKDOWN
     # =========================================================================
-    s7 = prs.slides.add_slide(blank_slide_layout)
-    add_bg(s7, LIGHT_BG)
-    add_header(s7, "Technologies Used", 
+    s9 = prs.slides.add_slide(blank_slide_layout)
+    add_bg(s9, LIGHT_BG)
+    add_header(s9, "Technologies Used", 
                "Simple Tech Stack Overview",
                "Built using standard, reliable, and completely free open-source tools.")
 
@@ -588,14 +650,14 @@ def create_presentation():
         x_pos = Inches(0.8 + c * 3.95)
         y_pos = Inches(1.85 + r * 2.55)
         
-        card = add_card(s7, x_pos, y_pos, Inches(3.8), Inches(2.35), WHITE, BORDER_COLOR)
+        card = add_card(s9, x_pos, y_pos, Inches(3.8), Inches(2.35), WHITE, BORDER_COLOR)
         
-        bar = s7.shapes.add_shape(MSO_SHAPE.RECTANGLE, x_pos, y_pos, Inches(3.8), Inches(0.08))
+        bar = s9.shapes.add_shape(MSO_SHAPE.RECTANGLE, x_pos, y_pos, Inches(3.8), Inches(0.08))
         bar.fill.solid()
         bar.fill.fore_color.rgb = col
         bar.line.fill.background()
 
-        tb = s7.shapes.add_textbox(x_pos + Inches(0.2), y_pos + Inches(0.18), Inches(3.4), Inches(2.0))
+        tb = s9.shapes.add_textbox(x_pos + Inches(0.2), y_pos + Inches(0.18), Inches(3.4), Inches(2.0))
         tf = tb.text_frame
         tf.word_wrap = True
         
@@ -619,11 +681,11 @@ def create_presentation():
         p3.font.color.rgb = SLATE_700
 
     # =========================================================================
-    # SLIDE 8: UNIQUE CAPABILITIES & REAL DISASTER REPLAY
+    # SLIDE 10: UNIQUE CAPABILITIES & REAL DISASTER REPLAY
     # =========================================================================
-    s8 = prs.slides.add_slide(blank_slide_layout)
-    add_bg(s8, LIGHT_BG)
-    add_header(s8, "Key Project Features", 
+    s10 = prs.slides.add_slide(blank_slide_layout)
+    add_bg(s10, LIGHT_BG)
+    add_header(s10, "Key Project Features", 
                "Helpful Features Built for Relief Teams",
                "Practical tools designed for both live emergency responses and training drills.")
 
@@ -648,9 +710,9 @@ def create_presentation():
         x_pos = Inches(0.8 + c * 5.9)
         y_pos = Inches(1.85 + r * 2.55)
         
-        card = add_card(s8, x_pos, y_pos, Inches(5.7), Inches(2.35), WHITE, BORDER_COLOR)
+        card = add_card(s10, x_pos, y_pos, Inches(5.7), Inches(2.35), WHITE, BORDER_COLOR)
         
-        tb = s8.shapes.add_textbox(x_pos + Inches(0.25), y_pos + Inches(0.2), Inches(5.2), Inches(1.95))
+        tb = s10.shapes.add_textbox(x_pos + Inches(0.25), y_pos + Inches(0.2), Inches(5.2), Inches(1.95))
         tf = tb.text_frame
         tf.word_wrap = True
         
@@ -674,11 +736,11 @@ def create_presentation():
         p3.font.color.rgb = SLATE_700
 
     # =========================================================================
-    # SLIDE 9: HONEST LIMITATIONS (VIVA & EVALUATION READY)
+    # SLIDE 11: HONEST LIMITATIONS (VIVA & EVALUATION READY)
     # =========================================================================
-    s9 = prs.slides.add_slide(blank_slide_layout)
-    add_bg(s9, LIGHT_BG)
-    add_header(s9, "Honest Self-Evaluation", 
+    s11 = prs.slides.add_slide(blank_slide_layout)
+    add_bg(s11, LIGHT_BG)
+    add_header(s11, "Honest Self-Evaluation", 
                "Current Limitations of the Project",
                "Honest points to mention during viva, defense, or project presentations.")
 
@@ -703,14 +765,14 @@ def create_presentation():
         x_pos = Inches(0.8 + c * 5.9)
         y_pos = Inches(1.85 + r * 2.55)
         
-        card = add_card(s9, x_pos, y_pos, Inches(5.7), Inches(2.35), WHITE, BORDER_COLOR)
+        card = add_card(s11, x_pos, y_pos, Inches(5.7), Inches(2.35), WHITE, BORDER_COLOR)
         
-        strip = s9.shapes.add_shape(MSO_SHAPE.RECTANGLE, x_pos, y_pos, Inches(0.1), Inches(2.35))
+        strip = s11.shapes.add_shape(MSO_SHAPE.RECTANGLE, x_pos, y_pos, Inches(0.1), Inches(2.35))
         strip.fill.solid()
         strip.fill.fore_color.rgb = l_col
         strip.line.fill.background()
 
-        tb = s9.shapes.add_textbox(x_pos + Inches(0.25), y_pos + Inches(0.2), Inches(5.2), Inches(1.95))
+        tb = s11.shapes.add_textbox(x_pos + Inches(0.25), y_pos + Inches(0.2), Inches(5.2), Inches(1.95))
         tf = tb.text_frame
         tf.word_wrap = True
         
@@ -727,11 +789,11 @@ def create_presentation():
         p2.font.color.rgb = SLATE_700
 
     # =========================================================================
-    # SLIDE 10: FUTURE WORKS & PRACTICAL ROADMAP
+    # SLIDE 12: FUTURE WORKS & PRACTICAL ROADMAP
     # =========================================================================
-    s10 = prs.slides.add_slide(blank_slide_layout)
-    add_bg(s10, LIGHT_BG)
-    add_header(s10, "Future Improvements", 
+    s12 = prs.slides.add_slide(blank_slide_layout)
+    add_bg(s12, LIGHT_BG)
+    add_header(s12, "Future Improvements", 
                "What We Plan to Build Next",
                "Roadmap to turn this student project into a field-ready emergency platform.")
 
@@ -744,14 +806,14 @@ def create_presentation():
 
     for idx, (p_title, p_desc) in enumerate(phases):
         y_pos = Inches(1.85 + idx * 1.3)
-        card = add_card(s10, Inches(0.8), y_pos, Inches(6.8), Inches(1.15))
+        card = add_card(s12, Inches(0.8), y_pos, Inches(6.8), Inches(1.15))
         
-        strip = s10.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(0.8), y_pos, Inches(0.1), Inches(1.15))
+        strip = s12.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(0.8), y_pos, Inches(0.1), Inches(1.15))
         strip.fill.solid()
         strip.fill.fore_color.rgb = EMERALD_GREEN
         strip.line.fill.background()
 
-        tb = s10.shapes.add_textbox(Inches(1.05), y_pos + Inches(0.1), Inches(6.4), Inches(0.95))
+        tb = s12.shapes.add_textbox(Inches(1.05), y_pos + Inches(0.1), Inches(6.4), Inches(0.95))
         tf = tb.text_frame
         tf.word_wrap = True
         p1 = tf.paragraphs[0]
@@ -767,9 +829,9 @@ def create_presentation():
         p2.font.color.rgb = SLATE_700
 
     if os.path.exists(img_convoy):
-        card_pic2 = add_card(s10, Inches(7.8), Inches(1.85), Inches(4.7), Inches(5.1))
-        s10.shapes.add_picture(img_convoy, Inches(7.9), Inches(1.95), Inches(4.5), Inches(3.7))
-        tb_c2 = s10.shapes.add_textbox(Inches(7.9), Inches(5.75), Inches(4.5), Inches(1.0))
+        card_pic2 = add_card(s12, Inches(7.8), Inches(1.85), Inches(4.7), Inches(5.1))
+        s12.shapes.add_picture(img_convoy, Inches(7.9), Inches(1.95), Inches(4.5), Inches(3.7))
+        tb_c2 = s12.shapes.add_textbox(Inches(7.9), Inches(5.75), Inches(4.5), Inches(1.0))
         tf_c2 = tb_c2.text_frame
         tf_c2.word_wrap = True
         p_c2 = tf_c2.paragraphs[0]
@@ -778,12 +840,12 @@ def create_presentation():
         p_c2.font.color.rgb = SLATE_700
 
     # =========================================================================
-    # SLIDE 11: CONCLUSION & REPO DETAILS (Dark Mode)
+    # SLIDE 13: CONCLUSION & REPO DETAILS (Dark Mode)
     # =========================================================================
-    s11 = prs.slides.add_slide(blank_slide_layout)
-    add_bg(s11, DARK_BG)
+    s13 = prs.slides.add_slide(blank_slide_layout)
+    add_bg(s13, DARK_BG)
 
-    tb_end = s11.shapes.add_textbox(Inches(1.2), Inches(1.0), Inches(10.9), Inches(5.5))
+    tb_end = s13.shapes.add_textbox(Inches(1.2), Inches(1.0), Inches(10.9), Inches(5.5))
     tf_end = tb_end.text_frame
     tf_end.word_wrap = True
 
@@ -831,7 +893,7 @@ def create_presentation():
     
     prs.save(output_path1)
     prs.save(output_path2)
-    print(f"Presentation successfully updated with simple English:\n  1. {output_path1}\n  2. {output_path2}")
+    print(f"Presentation successfully updated with Users and Formulas slides:\n  1. {output_path1}\n  2. {output_path2}")
 
 if __name__ == "__main__":
     create_presentation()
