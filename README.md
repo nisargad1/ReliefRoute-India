@@ -54,6 +54,37 @@ Roads touching a no-go polygon, or with severe hazard, are deleted from the grap
 
 Run the tests: `testthat::test_dir("tests/testthat")`.
 
+## System Architecture
+
+```mermaid
+flowchart TD
+    subgraph DataFeeds["Live & Public Data Feeds"]
+        A1["Open-Meteo (Rain Forecast / ERA5 Reanalysis)"]
+        A2["USGS (M4+ Earthquakes)"]
+        A3["NASA EONET (Active Natural Hazards)"]
+        A4["OSM / OSRM (Road Geometries & Durations)"]
+        A5["Census 2011 (District Populations)"]
+    end
+
+    subgraph CoreEngine["ReliefRoute Core Engine"]
+        B1["Dynamic Hazard Processing (helpers/hazards.R)"]
+        B2["Weighted Risk Index & Road Exclusion (helpers/routing.R)"]
+        B3["igraph Shortest Paths (Dijkstra)"]
+        B4["lpSolve Multi-Hub Fleet Allocation (Transportation LP)"]
+        B5["Clarke-Wright Convoy VRP (helpers/vrp.R)"]
+    end
+
+    subgraph UI["Interactive Shiny Dashboard"]
+        C1["Leaflet Map + Supply/Demand Heatmaps"]
+        C2["Interactive Exclusion Zone Drawing Tool"]
+        C3["Sensitivity & Risk Trade-off Curves"]
+        C4["Exportable Situation Report (HTML / Printable PDF)"]
+    end
+
+    DataFeeds --> CoreEngine
+    CoreEngine --> UI
+```
+
 ## Project structure
 
 ```
@@ -72,31 +103,19 @@ ReliefRoute-India/
 ├── tests/testthat/            # unit tests
 ├── .github/workflows/tests.yml
 ├── docs/RESEARCH.md
-└── push_to_github.sh / .ps1
+└── CITATION.cff               # academic citation metadata
 ```
 
-## Push to GitHub (account: nisargad1)
+## Testing & CI
 
-1. On github.com create a **new empty repository** named `ReliefRoute-India` (no README, no licence).
-2. Open a terminal in the project folder (RStudio: Tools > Terminal > New Terminal) and run:
-   * macOS/Linux/Git Bash: `bash push_to_github.sh`
-   * Windows PowerShell: `.\push_to_github.ps1`
+Unit tests cover network topology, geometry helpers, WRI cost calculations, road closure logic, and fleet allocation problems:
 
-   or manually:
-```bash
-git init
-git add .
-git commit -m "ReliefRoute India v2"
-git branch -M main
-git remote add origin https://github.com/nisargad1/ReliefRoute-India.git
-git push -u origin main
+```r
+# Run all unit tests locally in R / RStudio
+testthat::test_dir("tests/testthat")
 ```
-3. GitHub does not accept account passwords for `git push`: when prompted, sign in through the browser window
-   (Git Credential Manager) or paste a **Personal Access Token** (GitHub > Settings > Developer settings >
-   Tokens (classic) > scope `repo`). In R: `usethis::create_github_token()` then `gitcreds::gitcreds_set()`.
-4. If the repository already contains v1 files, either push to a new repository name, or (only if you are sure) use
-   `git push -u origin main --force` to replace it.
-5. The `tests` workflow runs automatically on every push (Actions tab).
+
+Automated continuous integration is configured via **GitHub Actions** (`.github/workflows/tests.yml`), running on `ubuntu-latest` with R 4.x on every push and pull request.
 
 ## Troubleshooting
 

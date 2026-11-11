@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use this software in your research or project, please cite it as below."
+authors:
+  - name: "Nisarga Devaraj"
+    alias: "nisargad1"
+title: "ReliefRoute India v2: Dynamic Humanitarian Supply-Chain Router"
+version: 2.0.0
+date-released: 2026-11-11
+url: "https://github.com/nisargad1/ReliefRoute-India"
+repository-code: "https://github.com/nisargad1/ReliefRoute-India"
+license: MIT
+keywords:
+  - humanitarian logistics
+  - disaster management
+  - vehicle routing problem
+  - shiny
+  - r
+  - leaflet
+  - openstreetmap
