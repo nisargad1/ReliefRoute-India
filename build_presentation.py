@@ -3,7 +3,7 @@ import sys
 from pptx import Presentation
 from pptx.util import Inches, Pt
 from pptx.dml.color import RGBColor
-from pptx.enum.text import PP_ALIGN, MSO_ANCHOR
+from pptx.enum.text import PP_ALIGN
 from pptx.enum.shapes import MSO_SHAPE
 
 def create_presentation():
@@ -12,23 +12,23 @@ def create_presentation():
     prs.slide_height = Inches(7.5)
     blank_slide_layout = prs.slide_layouts[6]
 
-    # Color Palette Definitions
-    DARK_BG = RGBColor(11, 25, 44)        # #0B192C Deep Navy
-    DARK_CARD = RGBColor(21, 44, 76)      # #152C4C Dark Card
-    LIGHT_BG = RGBColor(248, 250, 252)    # #F8FAFC Slate 50
+    # Clean, Modern Color Palette
+    DARK_BG = RGBColor(11, 25, 44)        # Deep Navy
+    DARK_CARD = RGBColor(21, 44, 76)      # Slate Navy Card
+    LIGHT_BG = RGBColor(248, 250, 252)    # Clean Light Background (Slate 50)
     WHITE = RGBColor(255, 255, 255)
-    SLATE_900 = RGBColor(15, 23, 42)      # #0F172A Dark Charcoal
-    SLATE_700 = RGBColor(51, 65, 85)      # #334155
-    SLATE_500 = RGBColor(100, 116, 139)   # #64748B Muted
-    BORDER_COLOR = RGBColor(226, 232, 240) # #E2E8F0
+    SLATE_900 = RGBColor(15, 23, 42)      # Deep Charcoal Text
+    SLATE_700 = RGBColor(51, 65, 85)      # Body Text
+    SLATE_500 = RGBColor(100, 116, 139)   # Subtitles / Muted
+    BORDER_COLOR = RGBColor(226, 232, 240) # Subtle Card Border
     
-    PRIMARY_BLUE = RGBColor(14, 116, 144)  # Cyan/Teal #0E7490
-    NAVY_BLUE = RGBColor(30, 58, 138)     # Deep Blue #1E3A8A
-    ORANGE_ALERT = RGBColor(234, 88, 12)  # Hazard Orange #EA580C
-    EMERALD_GREEN = RGBColor(16, 185, 129)# Safe Emerald #10B981
-    ROSE_RED = RGBColor(225, 29, 72)      # Danger Rose #E11D48
-    AMBER_YELLOW = RGBColor(217, 119, 6)  # Warning Amber #D97706
-    PURPLE_ACC = RGBColor(126, 34, 206)   # #7E22CE
+    PRIMARY_BLUE = RGBColor(14, 116, 144)  # Teal Blue
+    NAVY_BLUE = RGBColor(30, 58, 138)     # Deep Royal Blue
+    ORANGE_ALERT = RGBColor(234, 88, 12)  # Warning Orange
+    EMERALD_GREEN = RGBColor(16, 185, 129)# Safe Emerald
+    ROSE_RED = RGBColor(225, 29, 72)      # Alert Red
+    AMBER_YELLOW = RGBColor(217, 119, 6)  # Warning Amber
+    PURPLE_ACC = RGBColor(126, 34, 206)   # Purple
 
     image_dir = r"C:\Users\Nisarga\Downloads\ReliefRoute-India-v2\ReliefRoute-India\docs\images"
     img_hero = os.path.join(image_dir, "hero_telemetry.jpg")
@@ -106,7 +106,7 @@ def create_presentation():
     tf1.margin_left = tf1.margin_top = tf1.margin_right = tf1.margin_bottom = 0
 
     p_badge = tf1.paragraphs[0]
-    p_badge.text = "ACADEMIC MINI PROJECT  •  DISASTER RESPONSE LOGISTICS"
+    p_badge.text = "ACADEMIC MINI PROJECT  •  DISASTER RELIEF LOGISTICS"
     p_badge.font.size = Pt(11)
     p_badge.font.bold = True
     p_badge.font.color.rgb = ORANGE_ALERT
@@ -120,19 +120,19 @@ def create_presentation():
     p_main.space_after = Pt(10)
 
     p_sub = tf1.add_paragraph()
-    p_sub.text = "Dynamic Humanitarian Supply-Chain Router &\nRisk-Aware Fleet Optimization for India"
-    p_sub.font.size = Pt(18)
+    p_sub.text = "Smart & Safe Truck Routing\nDuring Disasters in India"
+    p_sub.font.size = Pt(20)
     p_sub.font.color.rgb = RGBColor(186, 215, 233)
-    p_sub.space_after = Pt(28)
+    p_sub.space_after = Pt(24)
 
     p_desc = tf1.add_paragraph()
-    p_desc.text = "An interactive GIS decision-support framework that bridges live hazard feeds (rain, floods, quakes) with Dijkstra shortest-path routing, transportation linear programming, and convoy VRP."
-    p_desc.font.size = Pt(12)
+    p_desc.text = "An easy-to-use map dashboard that guides emergency relief trucks safely around flooded roads, landslides, and storm zones across India."
+    p_desc.font.size = Pt(13)
     p_desc.font.color.rgb = RGBColor(148, 163, 184)
-    p_desc.space_after = Pt(30)
+    p_desc.space_after = Pt(28)
 
     p_meta = tf1.add_paragraph()
-    p_meta.text = "Developed by: Nisarga Devaraj (github.com/nisargad1)\nTech Stack: R 4.1+, Shiny, Leaflet, sf, igraph, lpSolve, OSRM\nNovember 2026  •  Open-Source (MIT License)"
+    p_meta.text = "Created by: Nisarga Devaraj (github.com/nisargad1)\nBuilt with: R, Shiny, Leaflet & OpenStreetMap\nNovember 2026  •  Free & Open Source (MIT License)"
     p_meta.font.size = Pt(11)
     p_meta.font.bold = True
     p_meta.font.color.rgb = RGBColor(226, 232, 240)
@@ -146,7 +146,7 @@ def create_presentation():
         tf_cap = caption_box.text_frame
         tf_cap.word_wrap = True
         p_cap = tf_cap.paragraphs[0]
-        p_cap.text = "AI/GIS-Assisted Convoy Navigation: Real-time risk avoidance routing relief trucks through India's Western Ghats & flood plains."
+        p_cap.text = "Smart Navigation in Action: Helping emergency supply trucks steer clear of flooded roads and mountain landslides during heavy monsoon storms."
         p_cap.font.size = Pt(10)
         p_cap.font.color.rgb = RGBColor(148, 163, 184)
 
@@ -155,20 +155,19 @@ def create_presentation():
     # =========================================================================
     s2 = prs.slides.add_slide(blank_slide_layout)
     add_bg(s2, LIGHT_BG)
-    add_header(s2, "Problem Statement & Real-World Motivation", 
-               "Why Traditional Commercial GPS Fails in Disaster Logistics",
-               "Humanitarian supply chains face extreme uncertainty, shifting danger zones, and high life-safety stakes.")
+    add_header(s2, "The Real-World Problem", 
+               "Why Regular GPS Apps Fail During Emergencies",
+               "Everyday navigation apps like Google Maps are made for normal traffic, not disaster zones.")
 
-    # Left Column: 3 Critical Failure Modes
     cards_data = [
-        ("1. Divergent Objectives: Fastest vs. Survivable", 
-         "Commercial GPS (Google Maps, OSRM) strictly minimizes travel time or tolls. In crises (Kerala floods, Cyclone Fani), the 'fastest' highway frequently leads into submerged bridges, washouts, and active landslides.",
+        ("1. Fastest Route is Not Always Safe", 
+         "Normal map apps always pick the shortest or quickest road. But during heavy floods (like in Kerala or Assam), that 'fastest' highway is often washed out or underwater, leaving trucks trapped.",
          ROSE_RED),
-        ("2. Information Delay & Fragmentation", 
-         "Official bulletins (NDMA, SDMA, IMD rain alerts) are published as PDFs, radio broadcasts, or static map viewers. They are completely un-routable and disconnected from vehicle dispatch engines.",
+        ("2. Warning Updates Are Scattered & Slow", 
+         "Government weather and flood warnings usually come as news updates, PDF circulars, or radio bulletins. Drivers and managers cannot easily plug these alerts into a map to see safe routes.",
          AMBER_YELLOW),
-        ("3. High Stakes & Decoupled Decisions", 
-         "Logistics accounts for 60%–80% of total disaster relief expenditure (Van Wassenhove, 2006). Which hub serves which camp and which route trucks take are coupled; closing one road disrupts the entire national plan.",
+        ("3. Huge Costs and High Stakes", 
+         "Up to 80% of all disaster spending goes into transporting goods. When trucks take wrong, blocked roads, relief items get ruined and help arrives too late for people in need.",
          NAVY_BLUE)
     ]
 
@@ -176,7 +175,6 @@ def create_presentation():
         y_pos = Inches(1.85 + idx * 1.65)
         card = add_card(s2, Inches(0.8), y_pos, Inches(6.8), Inches(1.48))
         
-        # Pill
         stripe = s2.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(0.8), y_pos, Inches(0.1), Inches(1.48))
         stripe.fill.solid()
         stripe.fill.fore_color.rgb = acc_col
@@ -195,7 +193,7 @@ def create_presentation():
         
         p2 = tf.add_paragraph()
         p2.text = body
-        p2.font.size = Pt(10.5)
+        p2.font.size = Pt(11)
         p2.font.color.rgb = SLATE_700
 
     # Right Column: Visual Photo & Stat Callout
@@ -204,7 +202,7 @@ def create_presentation():
         s2.shapes.add_picture(img_flood, Inches(7.9), Inches(1.95), Inches(4.5), Inches(2.7))
         cap_b = s2.shapes.add_textbox(Inches(7.9), Inches(4.7), Inches(4.5), Inches(0.4))
         p_c = cap_b.text_frame.paragraphs[0]
-        p_c.text = "Real-World Hazard: Monsoon flooding cutting off Indian highways."
+        p_c.text = "Real Challenge: Blocked and flooded highway during Indian monsoons."
         p_c.font.size = Pt(9.5)
         p_c.font.color.rgb = SLATE_500
 
@@ -219,7 +217,7 @@ def create_presentation():
     p_st1.font.bold = True
     p_st1.font.color.rgb = ROSE_RED
     p_st2 = tf_st.add_paragraph()
-    p_st2.text = "Of all disaster relief operational spending is consumed by transportation and logistics. Every stranded convoy represents lost human lives."
+    p_st2.text = "Of all disaster relief funding is spent on transportation and fuel. When roads are blocked, essential food, water, and medicines get delayed."
     p_st2.font.size = Pt(10.5)
     p_st2.font.color.rgb = SLATE_900
 
@@ -228,42 +226,42 @@ def create_presentation():
     # =========================================================================
     s3 = prs.slides.add_slide(blank_slide_layout)
     add_bg(s3, LIGHT_BG)
-    add_header(s3, "Competitive Landscape & The Research Gap", 
-               "Existing Solutions vs. ReliefRoute India v2",
-               "How our research bridges the structural gaps in current commercial and disaster navigation tools.")
+    add_header(s3, "Comparison with Existing Tools", 
+               "What Exists Today vs. ReliefRoute India",
+               "How our solution solves the key missing pieces in current apps.")
 
     solutions = [
-        ("Google Maps / Routes API", 
-         "Commercial Leader",
-         [("Hazard Avoidance", "None (Only tolls, highways, ferries)"),
-          ("Custom Danger Polygons", "Not supported by API"),
-          ("Continuous Risk Metric", "Pure travel-time / distance cost"),
-          ("Multi-Hub Fleet Allocation", "None (Single point-to-point)"),
-          ("Open-Source & Teachable", "Proprietary, paid API")],
+        ("Regular Map Apps\n(Google Maps)", 
+         "City Driving",
+         [("Avoids Disasters?", "No (only traffic jams and tolls)"),
+          ("Custom Danger Zones?", "Cannot draw flood zones"),
+          ("Safety Risk Score?", "Only checks travel time/distance"),
+          ("Warehouse Balancing?", "Only 1 car/trip at a time"),
+          ("Access & Price", "Proprietary, commercial service")],
          BORDER_COLOR),
-        ("OSRM / OpenRouteService", 
-         "Open-Source Routing",
-         [("Hazard Avoidance", "Binary avoidance in ORS; clips edges"),
-          ("Custom Danger Polygons", "Slow / requires pre-processing"),
-          ("Continuous Risk Metric", "Limited / experimental custom models"),
-          ("Multi-Hub Fleet Allocation", "No depot balancing or LP"),
-          ("Open-Source & Teachable", "Heavy C++ server setup required")],
+        ("Open-Source Routers\n(OSRM / ORS)", 
+         "Standard Routing",
+         [("Avoids Disasters?", "Basic roadblocks only"),
+          ("Custom Danger Zones?", "Slow and clunky to update"),
+          ("Safety Risk Score?", "Limited risk adjustments"),
+          ("Warehouse Balancing?", "Cannot plan supply sharing"),
+          ("Access & Price", "Complex server configuration")],
          BORDER_COLOR),
-        ("NDMA / Bhuvan / IMD", 
-         "Government Portals",
-         [("Hazard Avoidance", "Static PDF bulletins & web maps"),
-          ("Custom Danger Polygons", "Visual layers only; non-routable"),
-          ("Continuous Risk Metric", "Weather alerts (Yellow/Orange/Red)"),
-          ("Multi-Hub Fleet Allocation", "Manual district administrative orders"),
-          ("Open-Source & Teachable", "Closed internal workflows")],
+        ("Government Sites\n(NDMA / IMD)", 
+         "Weather Alerts",
+         [("Avoids Disasters?", "Shows warnings on static web maps"),
+          ("Custom Danger Zones?", "Informational only, not for GPS"),
+          ("Safety Risk Score?", "Color codes (Yellow/Orange/Red)"),
+          ("Warehouse Balancing?", "Managed manually by phone calls"),
+          ("Access & Price", "Government internal systems")],
          BORDER_COLOR),
-        ("ReliefRoute India v2 (Ours)", 
-         "Dynamic Humanitarian Router",
-         [("Hazard Avoidance", "Real-time live multi-hazard feeds"),
-          ("Custom Danger Polygons", "Live drawing tool (sf st_intersects)"),
-          ("Continuous Risk Metric", "Weighted Risk Index (WRI, lambda 0-10)"),
-          ("Multi-Hub Fleet Allocation", "Linear Programming (lpSolve) + VRP"),
-          ("Open-Source & Teachable", "100% R/Shiny, reproducible, MIT")],
+        ("ReliefRoute India\n(Our Solution)", 
+         "Disaster Relief",
+         [("Avoids Disasters?", "Live rain, flood, and quake feeds"),
+          ("Custom Danger Zones?", "1-Click tool to draw no-go zones"),
+          ("Safety Risk Score?", "Smart Risk Index with safety slider"),
+          ("Warehouse Balancing?", "Automatically balances stocks & camps"),
+          ("Access & Price", "100% Free, open-source R code")],
          PRIMARY_BLUE)
     ]
 
@@ -273,13 +271,12 @@ def create_presentation():
         bg = RGBColor(240, 253, 250) if is_ours else WHITE
         card = add_card(s3, x_pos, Inches(1.85), Inches(2.8), Inches(5.1), bg, border_col)
         
-        # Header banner
         tb = s3.shapes.add_textbox(x_pos + Inches(0.15), Inches(1.95), Inches(2.5), Inches(0.8))
         tf = tb.text_frame
         tf.word_wrap = True
         p_t = tf.paragraphs[0]
         p_t.text = title
-        p_t.font.size = Pt(13)
+        p_t.font.size = Pt(12.5)
         p_t.font.bold = True
         p_t.font.color.rgb = PRIMARY_BLUE if is_ours else SLATE_900
         
@@ -289,7 +286,6 @@ def create_presentation():
         p_tag.font.color.rgb = EMERALD_GREEN if is_ours else SLATE_500
         p_tag.space_after = Pt(10)
 
-        # Feature rows
         feat_box = s3.shapes.add_textbox(x_pos + Inches(0.15), Inches(2.85), Inches(2.5), Inches(3.9))
         tf_f = feat_box.text_frame
         tf_f.word_wrap = True
@@ -314,11 +310,11 @@ def create_presentation():
     # =========================================================================
     s4 = prs.slides.add_slide(blank_slide_layout)
     add_bg(s4, LIGHT_BG)
-    add_header(s4, "Mathematical Formulation & Innovation", 
-               "The Weighted Risk Index (WRI) & Risk-Penalised Cost Function",
-               "Treating disaster danger not merely as a binary impassable wall, but as a continuous optimization trade-off.")
+    add_header(s4, "Our Solution & Method", 
+               "How We Calculate Safe Routes: The Risk Index",
+               "We give every road a Risk Score so trucks can safely detour around danger.")
 
-    # Left: Mathematical Formula Cards
+    # Left: Simple Math Explanation
     left_w = Inches(6.0)
     card_math = add_card(s4, Inches(0.8), Inches(1.85), left_w, Inches(5.1), WHITE, PRIMARY_BLUE)
     
@@ -327,65 +323,65 @@ def create_presentation():
     tf_m.word_wrap = True
     
     p_m1 = tf_m.paragraphs[0]
-    p_m1.text = "1. The Weighted Risk Index (0 to 100)"
+    p_m1.text = "1. Road Risk Score (From 0 to 100)"
     p_m1.font.size = Pt(14)
     p_m1.font.bold = True
     p_m1.font.color.rgb = SLATE_900
-    p_m1.space_after = Pt(6)
+    p_m1.space_after = Pt(4)
 
     p_eq1 = tf_m.add_paragraph()
-    p_eq1.text = "WRI = 100 × ( wH·H + wR·V + wS·S ) / ( wH + wR + wS )"
-    p_eq1.font.size = Pt(12)
+    p_eq1.text = "Risk Score = Combining (Weather + Weak Roads + Road Security)"
+    p_eq1.font.size = Pt(11.5)
     p_eq1.font.bold = True
     p_eq1.font.color.rgb = NAVY_BLUE
     p_eq1.space_after = Pt(14)
 
     p_m2 = tf_m.add_paragraph()
-    p_m2.text = "2. Hazard-Induced Travel Slowdown"
+    p_m2.text = "2. Weather Delays"
     p_m2.font.size = Pt(14)
     p_m2.font.bold = True
     p_m2.font.color.rgb = SLATE_900
-    p_m2.space_after = Pt(6)
+    p_m2.space_after = Pt(4)
 
     p_eq2 = tf_m.add_paragraph()
-    p_eq2.text = "Time = Base_Time / ( 1 - 0.45 · H )"
-    p_eq2.font.size = Pt(12)
+    p_eq2.text = "Real Travel Time = Normal Time + Rain / Flood Slowdown"
+    p_eq2.font.size = Pt(11.5)
     p_eq2.font.bold = True
     p_eq2.font.color.rgb = NAVY_BLUE
     p_eq2.space_after = Pt(14)
 
     p_m3 = tf_m.add_paragraph()
-    p_m3.text = "3. Risk-Averse Routing Cost Function"
+    p_m3.text = "3. Picking the Best Route"
     p_m3.font.size = Pt(14)
     p_m3.font.bold = True
     p_m3.font.color.rgb = SLATE_900
-    p_m3.space_after = Pt(6)
+    p_m3.space_after = Pt(4)
 
     p_eq3 = tf_m.add_paragraph()
-    p_eq3.text = "Cost = Time × [ 1 + λ × ( WRI / 100 ) × 2 ]"
-    p_eq3.font.size = Pt(12)
+    p_eq3.text = "Routing Cost = Travel Time + Extra Penalty for High Risk"
+    p_eq3.font.size = Pt(11.5)
     p_eq3.font.bold = True
     p_eq3.font.color.rgb = NAVY_BLUE
     p_eq3.space_after = Pt(14)
 
     p_m4 = tf_m.add_paragraph()
-    p_m4.text = "• λ = 0: Disregards hazards entirely (pure commercial GPS behavior).\n• λ > 0: Convoys make calculated, safe detours around high-risk segments.\n• Hazard ≥ threshold or touching no-go polygon: Edge is pruned immediately."
+    p_m4.text = "• Slider at Zero: Behaves like normal GPS (fastest route).\n• Slider Higher: Carefully routes trucks around floods and landslides.\n• Dangerous Roads: Roads underwater or inside drawn danger zones are shut down immediately."
     p_m4.font.size = Pt(10)
     p_m4.font.color.rgb = SLATE_700
 
-    # Right: 4 Dimension Cards
+    # Right: 4 Simple Factors
     dims = [
-        ("H : Hazard Exposure", 
-         "Calculated dynamically against 3-day rainfall forecast (Open-Meteo), GloFAS flood discharge signals, USGS earthquakes, and NASA EONET events.", 
+        ("Weather Danger (H)", 
+         "Pulls live rainfall forecasts, river flood alerts, and earthquake reports automatically from weather sensors.", 
          ORANGE_ALERT),
-        ("V : Road Vulnerability", 
-         "Physical corridor resilience: hill-terrain risk factors, seasonal flood plain exposure, and highway structural classifications.", 
+        ("Weak Roads (V)", 
+         "Accounts for fragile roads, steep mountain passes, and flood plains that easily crack or submerge.", 
          PURPLE_ACC),
-        ("S : Security & Access", 
-         "Civil constraints, administrative checkpoint delays, and conflict/insurgency vulnerability along transit routes.", 
+        ("Road Security (S)", 
+         "Considers checkpoints, broken bridges, or difficult areas where trucks might get stuck or delayed.", 
          PRIMARY_BLUE),
-        ("λ : Tunable Risk Aversion (0 to 10)", 
-         "Live interactive UI slider allowing commanders to choose between urgency (speed) vs. convoy protection (safety).", 
+        ("Safety Slider (λ from 0 to 10)", 
+         "A simple slider in the dashboard that lets emergency managers choose between Maximum Speed or Maximum Safety.", 
          EMERALD_GREEN)
     ]
 
@@ -418,9 +414,9 @@ def create_presentation():
     # =========================================================================
     s5 = prs.slides.add_slide(blank_slide_layout)
     add_bg(s5, LIGHT_BG)
-    add_header(s5, "Operations Research Core", 
-               "Dual Optimization: Multi-Hub Allocation & Multi-Stop Convoy VRP",
-               "Coupling macro-level inventory distribution with micro-level vehicle tour scheduling.")
+    add_header(s5, "Smart Logistics Features", 
+               "Two Smart Tools: Sharing Supplies & Grouping Trucks",
+               "Deciding who gets what supplies, and how trucks travel together safely.")
 
     # Engine 1: Transportation LP
     add_card(s5, Inches(0.8), Inches(1.85), Inches(5.7), Inches(5.1), WHITE, BORDER_COLOR)
@@ -429,30 +425,30 @@ def create_presentation():
     tf_e1.word_wrap = True
     
     p_e1 = tf_e1.paragraphs[0]
-    p_e1.text = "ENGINE 1: Multi-Hub Fleet Allocation"
+    p_e1.text = "TOOL 1: Fair Supply Sharing"
     p_e1.font.size = Pt(15)
     p_e1.font.bold = True
     p_e1.font.color.rgb = PRIMARY_BLUE
     p_e1.space_after = Pt(4)
 
     p_sub1 = tf_e1.add_paragraph()
-    p_sub1.text = "Linear Programming via lpSolve::lp.transport"
+    p_sub1.text = "Which warehouse sends food to which relief camp?"
     p_sub1.font.size = Pt(11)
     p_sub1.font.bold = True
     p_sub1.font.color.rgb = SLATE_500
     p_sub1.space_after = Pt(14)
 
     lp_points = [
-        ("Global Cost Minimization", "Dispatches relief stocks (tonnes) from multiple supply hubs to disaster camps across India at minimal total risk-weighted rupee cost."),
-        ("Dynamic Census Demand", "Camp demands scale dynamically based on Census-2011 population, disaster severity, and ration requirements (kg/person/day)."),
-        ("Transparent Shortfall Reporting", "Incorporates a virtual dummy supplier so unreachable or unsupplied demand is explicitly flagged with unmet tonnes, not hidden.")
+        ("Lowest Overall Cost", "Automatically matches multiple warehouses with relief camps across India at the lowest delivery cost and risk."),
+        ("Based on Real Population", "Camps with more people or heavier disaster damage automatically get more supplies."),
+        ("Clear Shortage Warnings", "If total food or trucks are not enough, the app clearly shows exactly how many tonnes are still missing.")
     ]
     for pt_h, pt_b in lp_points:
         p = tf_e1.add_paragraph()
         p.text = f"• {pt_h}: {pt_b}"
-        p.font.size = Pt(10.5)
+        p.font.size = Pt(11)
         p.font.color.rgb = SLATE_700
-        p.space_after = Pt(10)
+        p.space_after = Pt(12)
 
     # Engine 2: Convoy VRP
     add_card(s5, Inches(6.8), Inches(1.85), Inches(5.7), Inches(5.1), WHITE, BORDER_COLOR)
@@ -461,64 +457,64 @@ def create_presentation():
     tf_e2.word_wrap = True
 
     p_e2 = tf_e2.paragraphs[0]
-    p_e2.text = "ENGINE 2: Multi-Stop Convoy Planner"
+    p_e2.text = "TOOL 2: Multi-Stop Truck Convoys"
     p_e2.font.size = Pt(15)
     p_e2.font.bold = True
     p_e2.font.color.rgb = NAVY_BLUE
     p_e2.space_after = Pt(4)
 
     p_sub2 = tf_e2.add_paragraph()
-    p_sub2.text = "Capacitated Vehicle Routing (Clarke-Wright Savings)"
+    p_sub2.text = "Grouping trucks into safe, shared journeys"
     p_sub2.font.size = Pt(11)
     p_sub2.font.bold = True
     p_sub2.font.color.rgb = SLATE_500
     p_sub2.space_after = Pt(14)
 
     vrp_points = [
-        ("Multi-Drop Savings Heuristic", "Merges independent out-and-back delivery trips into consolidated multi-stop convoy circuits: Savings(i, j) = Cost(Hub, i) + Cost(Hub, j) - Cost(i, j)."),
-        ("Truck Capacity Constraints", "Respects maximum truck payload (default 10 tonnes per convoy lorry), clustering neighboring affected districts safely."),
-        ("Fuel & Fleet Efficiency", "Conserves up to 35% in total distance and fuel consumption while ensuring trucks travel in escorted convoys for maximum security.")
+        ("Multi-Stop Deliveries", "Instead of sending separate trucks back and forth to each village, it creates one round-trip route that delivers to several camps in a row."),
+        ("Packed to Capacity", "Ensures every 10-tonne relief truck is fully loaded before leaving, avoiding wasted trips."),
+        ("Saves Fuel & Keeps Drivers Safe", "Saves up to 35% in total driving distance and fuel, while keeping trucks traveling together in safe groups.")
     ]
     for pt_h, pt_b in vrp_points:
         p = tf_e2.add_paragraph()
         p.text = f"• {pt_h}: {pt_b}"
-        p.font.size = Pt(10.5)
+        p.font.size = Pt(11)
         p.font.color.rgb = SLATE_700
-        p.space_after = Pt(10)
+        p.space_after = Pt(12)
 
     # =========================================================================
     # SLIDE 6: SYSTEM ARCHITECTURE & DATA FLOW
     # =========================================================================
     s6 = prs.slides.add_slide(blank_slide_layout)
     add_bg(s6, LIGHT_BG)
-    add_header(s6, "System Architecture & Engineering Pipeline", 
-               "End-to-End Pipeline: Ingestion → Spatial Graph Engine → Decision UI",
-               "How live public APIs, graph mathematics, and reactive Shiny UI interact seamlessly.")
+    add_header(s6, "How the System Works", 
+               "System Architecture in 3 Simple Steps",
+               "From live public data to smart map directions for relief teams.")
 
     arch_steps = [
-        ("LAYER 1: DATA INGESTION",
-         "Live Public APIs & Datasets",
-         ["Open-Meteo: 3-day rain forecast & ERA5 historical reanalysis",
-          "USGS: Real-time M4+ earthquakes (14-day window)",
-          "NASA EONET: Natural hazard events (floods, fires, storms)",
-          "OSM / OSRM: Real highway geometry & truck travel times",
-          "Census of India: District population baseline priors"],
+        ("STEP 1: LIVE DATA FEEDS",
+         "Pulls Free Public Data",
+         ["Open-Meteo: Live 3-day rainfall forecasts & flood signals",
+          "USGS: Real-time earthquake alerts",
+          "NASA: Natural hazard events (floods, storms, fires)",
+          "OpenStreetMap: Real road distances and driving times",
+          "Census of India: Population numbers for every district"],
          NAVY_BLUE),
-        ("LAYER 2: CORE GRAPH ENGINE",
-         "Spatial & Operations Research",
-         ["Spatial Vectorization (sf): 48 cities & 69 arterial highway corridors",
-          "Dynamic Polygon Clipping: Live road closure via sf::st_intersects",
-          "WRI Risk Engine: Penalised cost calculation per edge",
-          "Dijkstra Shortest Paths: igraph risk-penalised routing",
-          "Fleet Solvers: lpSolve Transportation LP + Clarke-Wright VRP"],
+        ("STEP 2: THE ROUTING BRAIN",
+         "Calculates Safe Paths",
+         ["Connects 48 major Indian cities across 69 main highways",
+          "Checks which roads fall inside drawn flood danger zones",
+          "Calculates the Risk Score for every highway segment",
+          "Finds the best detour around storms using shortest-path math",
+          "Solves supply matching so every camp gets fair rations"],
          PRIMARY_BLUE),
-        ("LAYER 3: INTERACTIVE DASHBOARD",
-         "R Shiny & Decision Support",
-         ["Leaflet Map: Multi-layer view (routes, hazards, no-go polygons)",
-          "Supply/Demand Heatmaps: Population need vs. hub stock",
-          "Sensitivity Curves: Plotly lambda risk-tradeoff graphs",
-          "Executive SitRep: Auto-generated HTML / PDF printable reports",
-          "Bilingual Labels: English and Hindi interface support"],
+        ("STEP 3: EASY DASHBOARD",
+         "Interactive Web App",
+         ["Color-coded map showing safe routes, warnings, and trucks",
+          "Heatmaps showing where relief supplies are needed most",
+          "Simple slider to choose speed vs. extra safety",
+          "1-Click download of printable summary reports (HTML/PDF)",
+          "Bilingual labels in both English and Hindi for field teams"],
          EMERALD_GREEN)
     ]
 
@@ -526,7 +522,6 @@ def create_presentation():
         x_pos = Inches(0.8 + idx * 3.95)
         add_card(s6, x_pos, Inches(1.85), Inches(3.8), Inches(5.1), WHITE, BORDER_COLOR)
         
-        # Header banner
         strip = s6.shapes.add_shape(MSO_SHAPE.RECTANGLE, x_pos, Inches(1.85), Inches(3.8), Inches(0.1))
         strip.fill.solid()
         strip.fill.fore_color.rgb = l_col
@@ -553,37 +548,37 @@ def create_presentation():
         for item in l_items:
             pi = tf.add_paragraph()
             pi.text = f"• {item}"
-            pi.font.size = Pt(10)
+            pi.font.size = Pt(10.5)
             pi.font.color.rgb = SLATE_700
-            pi.space_after = Pt(8)
+            pi.space_after = Pt(9)
 
     # =========================================================================
     # SLIDE 7: TECH STACK BREAKDOWN
     # =========================================================================
     s7 = prs.slides.add_slide(blank_slide_layout)
     add_bg(s7, LIGHT_BG)
-    add_header(s7, "Technology Stack & Implementation", 
-               "Production-Grade Open Source Ecosystem",
-               "Built entirely in R with clean spatial, optimization, and automated CI/CD tooling.")
+    add_header(s7, "Technologies Used", 
+               "Simple Tech Stack Overview",
+               "Built using standard, reliable, and completely free open-source tools.")
 
     tech_categories = [
-        ("Framework & UI", "R (>= 4.1), Shiny, shinydashboard", 
-         "Modular reactive architecture; responsive side-panels, tabbed routing, value boxes, and mobile-friendly CSS overrides.", 
+        ("Dashboard & App", "R & Shiny Dashboard", 
+         "Builds the interactive web interface with buttons, map layers, tabs, and real-time screen updates.", 
          PRIMARY_BLUE),
-        ("Geospatial & Maps", "sf, leaflet, leaflet.extras", 
-         "Simple Features spatial standard in R, Leaflet vector layers, geodesic buffer calculations, and real-time polygon drawing tools.", 
+        ("Maps & Geography", "Leaflet & sf Package", 
+         "Draws interactive maps of India, road polylines, flood circles, and lets users draw shapes on the map.", 
          EMERALD_GREEN),
-        ("Operations Research", "igraph, lpSolve, Custom VRP", 
-         "Fast C-backed Dijkstra graph algorithm for risk-weighted shortest paths, simplex LP for multi-hub allocation, Clarke-Wright convoy VRP.", 
+        ("Routing Math", "igraph & lpSolve", 
+         "Crunches the numbers to find the safest routes and solves warehouse supply sharing in seconds.", 
          NAVY_BLUE),
-        ("Public Data APIs", "Open-Meteo, USGS, NASA, OSRM", 
-         "Automated REST clients (httr, jsonlite) fetching live rainfall, GloFAS river discharge, seismic telemetry, and OSM road geometry.", 
+        ("Live Internet Feeds", "Weather & Satellite APIs", 
+         "Pulls live weather and earthquake information automatically from Open-Meteo, USGS, NASA, and OSM.", 
          AMBER_YELLOW),
-        ("Testing & Quality", "testthat, GitHub Actions CI", 
-         "Automated unit test suite verifying network connectivity, WRI formula behavior, and LP feasibility; tested on Ubuntu 22.04 LTS runners.", 
+        ("Testing & Quality", "testthat & GitHub Actions", 
+         "Automatically runs test checks on every update to guarantee the routes and math are 100% correct.", 
          PURPLE_ACC),
-        ("Visuals & Reports", "plotly, DT, htmltools", 
-         "Interactive sensitivity curves, searchable data tables, and zero-dependency HTML executive situation report generator.", 
+        ("Reports & Charts", "Plotly & HTML Export", 
+         "Shows risk trade-off graphs and generates clear summary reports ready to print or save as PDF.", 
          ROSE_RED)
     ]
 
@@ -595,7 +590,6 @@ def create_presentation():
         
         card = add_card(s7, x_pos, y_pos, Inches(3.8), Inches(2.35), WHITE, BORDER_COLOR)
         
-        # Colored top bar
         bar = s7.shapes.add_shape(MSO_SHAPE.RECTANGLE, x_pos, y_pos, Inches(3.8), Inches(0.08))
         bar.fill.solid()
         bar.fill.fore_color.rgb = col
@@ -621,7 +615,7 @@ def create_presentation():
 
         p3 = tf.add_paragraph()
         p3.text = cat_desc
-        p3.font.size = Pt(9.5)
+        p3.font.size = Pt(10)
         p3.font.color.rgb = SLATE_700
 
     # =========================================================================
@@ -629,23 +623,23 @@ def create_presentation():
     # =========================================================================
     s8 = prs.slides.add_slide(blank_slide_layout)
     add_bg(s8, LIGHT_BG)
-    add_header(s8, "Key Features & Disaster Simulation", 
-               "Interactive Capabilities & Historical Disaster Replay",
-               "Evaluating real-world performance against India's most destructive historical catastrophes.")
+    add_header(s8, "Key Project Features", 
+               "Helpful Features Built for Relief Teams",
+               "Practical tools designed for both live emergency responses and training drills.")
 
     feats = [
-        ("Live Interactive Polygon Exclusion", 
-         "Field teams sketching dangerous terrain or flooded sections on the Leaflet map triggers instant road pruning (sf::st_intersects) with zero re-indexing delay.",
-         "Interactive Tooling"),
-        ("Historical ERA5 Disaster Replay", 
-         "Replay exact historical atmospheric rainfall conditions: Kerala 2018 (380+ dead), Chennai 2015, Uttarakhand cloudburst 2013, Cyclone Fani 2019, Assam floods 2024.",
-         "Empirical Validation"),
-        ("Route Comparison Engine", 
-         "Side-by-side diagnostic: GPS Fastest vs. Closure-Aware vs. WRI Optimal. Reports exact road hazard exposure count, travel time trade-off, and rupee budget.",
-         "Explainable AI"),
-        ("Situation Report Download (SitRep)", 
-         "Generates a standalone, timestamped executive HTML SitRep with KPI value cards, truck trip assignments, unmet demand warnings, and printable PDF layout.",
-         "Mission Ready")
+        ("Draw Danger Zones on the Map", 
+         "Emergency workers can simply draw a box or circle over flooded areas on the map. The app immediately closes those roads and finds a safe detour in seconds.",
+         "EASY 1-CLICK TOOL"),
+        ("Replay Past Indian Disasters", 
+         "Test the system against real historical storms: Kerala Floods (2018), Chennai Floods (2015), Uttarakhand Landslides (2013), Cyclone Fani (2019), and Assam (2024).",
+         "TESTED WITH REAL DATA"),
+        ("Compare Routes Side-by-Side", 
+         "View 3 choices at once: (1) Normal GPS path, (2) Avoid Roadblocks path, and (3) Our Safe Route. Clearly see the small extra travel time needed to stay safe.",
+         "TRANSPARENT CHOICES"),
+        ("Printable Situation Report (SitRep)", 
+         "Download a clean summary sheet with total food delivered, truck trip schedules, and any unmet camp needs — ready to print or save as a PDF for commanders.",
+         "READY FOR MEETINGS")
     ]
 
     for idx, (f_title, f_desc, f_tag) in enumerate(feats):
@@ -676,7 +670,7 @@ def create_presentation():
 
         p3 = tf.add_paragraph()
         p3.text = f_desc
-        p3.font.size = Pt(10)
+        p3.font.size = Pt(10.5)
         p3.font.color.rgb = SLATE_700
 
     # =========================================================================
@@ -684,22 +678,22 @@ def create_presentation():
     # =========================================================================
     s9 = prs.slides.add_slide(blank_slide_layout)
     add_bg(s9, LIGHT_BG)
-    add_header(s9, "Academic Rigor & Limitations", 
-               "Honest Limitations (Essential for Viva & Defense)",
-               "Transparently addressing current engineering constraints and domain assumptions.")
+    add_header(s9, "Honest Self-Evaluation", 
+               "Current Limitations of the Project",
+               "Honest points to mention during viva, defense, or project presentations.")
 
     limits = [
-        ("1. Highway Corridor vs. Last-Mile Streets", 
-         "The current graph contains 48 cities and 69 arterial highway corridors. While real OSM geometry provides accurate curve distances and elevations, it does not route down to remote rural panchayat roads.",
+        ("1. Highway Corridors Only (Not Village Streets)", 
+         "The app currently maps 48 major Indian cities and 69 highway routes. It does not yet cover every small village street or unpaved rural mud road.",
          AMBER_YELLOW),
-        ("2. Synthetic Vulnerability & Security Priors", 
-         "Hub inventory levels, bridge structural vulnerabilities, and security ratings currently rely on heuristic assumptions and Census distributions rather than live government inventory databases.",
+        ("2. Estimated Warehouse Stock & Bridge Data", 
+         "Warehouse stock levels, bridge strength scores, and security ratings currently use estimated figures. Real government use will require live warehouse database connections.",
          AMBER_YELLOW),
-        ("3. Meteorological Reanalysis Resolution", 
-         "ERA5 rainfall is delivered on a 0.25° grid (~25 km resolution). While accurate for regional monsoon patterns, it inherently smooths hyper-local cloudbursts (e.g., flash floods in Himalayan valleys).",
+        ("3. Weather Block Size (25 km Grid)", 
+         "Satellite rain data comes in 25-kilometer blocks. While great for regional monsoon storms, it can smooth out sudden, tiny flash floods in narrow mountain valleys.",
          ROSE_RED),
-        ("4. Public API Dependency & Connectivity", 
-         "Live mode requires HTTP access to external APIs (Open-Meteo, USGS, NASA). While simulated disaster presets function 100% offline, field teams in communication blackouts need mesh caching.",
+        ("4. Internet Needed for Live Updates", 
+         "Pulling live weather and earthquake data needs internet access. Saved historical scenarios work completely offline, but real-time mode needs a data connection.",
          ROSE_RED)
     ]
 
@@ -729,7 +723,7 @@ def create_presentation():
 
         p2 = tf.add_paragraph()
         p2.text = l_desc
-        p2.font.size = Pt(10.5)
+        p2.font.size = Pt(11)
         p2.font.color.rgb = SLATE_700
 
     # =========================================================================
@@ -737,16 +731,15 @@ def create_presentation():
     # =========================================================================
     s10 = prs.slides.add_slide(blank_slide_layout)
     add_bg(s10, LIGHT_BG)
-    add_header(s10, "Future Scope & Project Evolution", 
-               "Future Works: From Educational Prototype to National Deployment",
-               "Roadmap for transforming ReliefRoute India into a field-deployed institutional platform.")
+    add_header(s10, "Future Improvements", 
+               "What We Plan to Build Next",
+               "Roadmap to turn this student project into a field-ready emergency platform.")
 
-    # Left: 4 Roadmap Phases
     phases = [
-        ("Phase 1: National Telemetry Integration", "Direct API integration with India-WRIS / Central Water Commission (CWC) river gauges, and IMD Doppler Weather Radar district warnings."),
-        ("Phase 2: Offline-First Field Driver App", "Lightweight offline mobile client for convoy drivers with satellite telemetry / LoRa mesh networking across internet blackout zones."),
-        ("Phase 3: Drone Reconnaissance Ingestion", "Automated computer vision pipelines to ingest post-disaster drone imagery and detect washed-out bridges and landslides in near real-time."),
-        ("Phase 4: Multi-Commodity Cargo Routing", "Differentiating fleet capacities between refrigerated medical cold-chains, potable water tankers, and dry ration trucks with priority deadlines.")
+        ("1. Connect to Live River Flood Sensors", "Link directly with Central Water Commission (CWC) river gauges and IMD radar for early flash flood warnings."),
+        ("2. Offline Phone App for Truck Drivers", "Build a lightweight driver app that works even when phone networks are down, using satellite or walkie-talkie mesh."),
+        ("3. Drone Photos to Spot Road Damage", "Use quick drone photos after a flood or landslide to automatically detect broken bridges and update the map instantly."),
+        ("4. Separate Relief Supplies by Urgency", "Separate trucks for cold-chain medicines, clean drinking water, and dry food so life-saving medicines get priority.")
     ]
 
     for idx, (p_title, p_desc) in enumerate(phases):
@@ -770,10 +763,9 @@ def create_presentation():
 
         p2 = tf.add_paragraph()
         p2.text = p_desc
-        p2.font.size = Pt(9.5)
+        p2.font.size = Pt(10)
         p2.font.color.rgb = SLATE_700
 
-    # Right: Photo of Safe Convoy
     if os.path.exists(img_convoy):
         card_pic2 = add_card(s10, Inches(7.8), Inches(1.85), Inches(4.7), Inches(5.1))
         s10.shapes.add_picture(img_convoy, Inches(7.9), Inches(1.95), Inches(4.5), Inches(3.7))
@@ -781,7 +773,7 @@ def create_presentation():
         tf_c2 = tb_c2.text_frame
         tf_c2.word_wrap = True
         p_c2 = tf_c2.paragraphs[0]
-        p_c2.text = "Target Deployment: Coordinated, escorted relief convoys successfully navigating clear bypass routes to deliver lifesaving aid on schedule."
+        p_c2.text = "Ultimate Goal: Relief trucks traveling together safely on clear roads, delivering urgent supplies without getting delayed by floods."
         p_c2.font.size = Pt(10)
         p_c2.font.color.rgb = SLATE_700
 
@@ -796,24 +788,25 @@ def create_presentation():
     tf_end.word_wrap = True
 
     p_eb = tf_end.paragraphs[0]
-    p_eb.text = "CONCLUSION & PROJECT SUMMARY"
+    p_eb.text = "SUMMARY & CONCLUSION"
     p_eb.font.size = Pt(12)
     p_eb.font.bold = True
     p_eb.font.color.rgb = EMERALD_GREEN
     p_eb.space_after = Pt(10)
 
     p_et = tf_end.add_paragraph()
-    p_et.text = "ReliefRoute India v2: Key Takeaways"
+    p_et.text = "ReliefRoute India: Key Takeaways"
     p_et.font.size = Pt(32)
     p_et.font.bold = True
     p_et.font.color.rgb = WHITE
-    p_et.space_after = Pt(20)
+    p_et.space_after = Pt(22)
 
     concl_points = [
-        "1. Bridges the Gap: Connects static weather bulletins (IMD/NDMA) directly with operational fleet routing.",
-        "2. Proven Risk Trade-Off: Weighted Risk Index (WRI) prevents convoys from entering deadly flood zones with modest travel-time overhead.",
-        "3. Joint Macro-Micro Optimization: Balances multi-hub stock allocation (LP) with multi-stop vehicle tours (Clarke-Wright VRP).",
-        "4. Production Quality & Reproducibility: Clean modular architecture, unit tests, automated CI/CD, and open MIT license."
+        "1. Solves a Real Problem: Regular GPS leads trucks into floods. Our tool routes around shifting danger zones.",
+        "2. Balances Speed & Safety: Lets emergency teams decide how much extra time they are willing to take to stay 100% safe.",
+        "3. Fair Supply Sharing: Automatically coordinates warehouse stocks so no relief camp is left empty-handed.",
+        "4. Saves Money & Fuel: Groups trucks into shared convoys, cutting fuel costs by up to 35%.",
+        "5. Free & Tested: Fully working dashboard, tested code, and open source under the MIT License."
     ]
     for pt in concl_points:
         p = tf_end.add_paragraph()
@@ -824,10 +817,10 @@ def create_presentation():
 
     p_space = tf_end.add_paragraph()
     p_space.text = " "
-    p_space.space_after = Pt(14)
+    p_space.space_after = Pt(10)
 
     p_link = tf_end.add_paragraph()
-    p_link.text = "GitHub Repository: https://github.com/nisargad1/ReliefRoute-India\nAuthor: Nisarga Devaraj  •  License: MIT  •  Built with R & Shiny"
+    p_link.text = "GitHub Repository: https://github.com/nisargad1/ReliefRoute-India\nCreated by: Nisarga Devaraj  •  Built with R & Shiny  •  Thank You!"
     p_link.font.size = Pt(12)
     p_link.font.bold = True
     p_link.font.color.rgb = PRIMARY_BLUE
@@ -838,7 +831,7 @@ def create_presentation():
     
     prs.save(output_path1)
     prs.save(output_path2)
-    print(f"Presentation successfully saved to:\n  1. {output_path1}\n  2. {output_path2}")
+    print(f"Presentation successfully updated with simple English:\n  1. {output_path1}\n  2. {output_path2}")
 
 if __name__ == "__main__":
     create_presentation()
