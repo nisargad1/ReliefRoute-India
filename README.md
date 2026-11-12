@@ -127,7 +127,7 @@ Automated continuous integration is configured via **GitHub Actions** (`.github/
 | A live feed says "unavailable" | Check internet/proxy; the other feeds and the simulated scenarios keep working |
 | Real-road download fails | The public OSRM server may be busy: try again later; the app works without it |
 
-## Limitations (say them in your viva)
+## Limitations
 
 * Default network = 48-city highway corridors; real OSM geometry replaces the straight lines after the download,
   but it is still a corridor graph, not every street.
