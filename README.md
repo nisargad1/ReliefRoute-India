@@ -5,7 +5,7 @@ while **avoiding shifting hazard zones**. Instead of optimising only time or dis
 **Weighted Risk Index (WRI)**, lets users **draw live no-go polygons** on the map, **splits stock between hubs**
 with linear programming and **plans multi-stop convoys** (vehicle routing).
 
-> Educational prototype. Not an official disaster-management tool. For real decisions use NDMA / SDMA / IMD
+> Educational prototype. Not an official disaster-management tool yet.
 > advisories (emergency 112, disaster helpline 1078).
 
 ## What is new in v2
